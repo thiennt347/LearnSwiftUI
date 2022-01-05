@@ -6,54 +6,81 @@
 //
 
 import SwiftUI
-let categories = [HorizontalData(id: 1, title: "kd Tasks", name: "Business", progress: 0.7), HorizontalData(id: 2, title: "k0 Tasks", name: "Personal", progress: 0.5), HorizontalData(id: 3, title: "kz Tasks", name: "Team Task", progress: 1)]
+let categories = [HorizontalData(id: 1, title: "20 Tasks", name: "Business", progress: 0.7), HorizontalData(id: 2, title: "10 Tasks", name: "Personal", progress: 0.5), HorizontalData(id: 2, title: "10 Tasks", name: "IMP Task", progress: 0.5)]
 
 let todayTasks = [TodayTask(id: 1, status: 0, name: "Daily meeting with team", taskType: TaskType.Business.rawValue), TodayTask(id: 2, status: 1, name: "Pay for your friend", taskType: TaskType.Personal.rawValue), TodayTask(id: 3, status: 0, name: "Check Emails", taskType: TaskType.Personal.rawValue), TodayTask(id: 4, status: 0, name: "Lunch with Thien", taskType: TaskType.Business.rawValue), TodayTask(id: 5, status: 0, name: "Mutation", taskType: TaskType.Personal.rawValue)]
 
 struct HomePageView: View {
+    @Binding var menuClick: Bool
+    var menuAction: (() -> Void)?
     var body: some View {
-        NavigationView {
-            homeContent
-            .background(Color.black.opacity(0.03))
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(leading: menuButton, trailing: leadingButton)
-        }
-        
+        BaseNavigationView(
+            menuClick: self.$menuClick,
+            imgBtnFirst: "ic_search",
+            imgBtnSecond: "ic_notification",
+            menuAction: {
+                withAnimation(.spring()) {
+                    self.menuClick.toggle()
+                }
+            }, actionBtnFirst: {
+                print("Search action")
+            }, actionBtnSecond: {
+                print("Notification action")
+            },
+            bgColor: Color.black.opacity(0.03),
+            content:
+                homeContent
+        )
+    }
+}
+
+struct HomePageView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
 
 private var homeContent: some View {
-    ScrollView {
-        VStack(alignment: .leading) {
-            Text("What's up, Joy!")
-                .font(Font.system(size: 30, weight: .bold))
-            Spacer()
-                .frame(minHeight: 20, maxHeight: .infinity)
-            Text("CATEGOTIES")
-                .font(Font.system(size: 16, weight: .bold))
-                .foregroundColor(Color.gray)
-            HorizontalList
-            Spacer().frame(height: 30)
-            Text("Today's Task")
-                .font(Font.system(size: 16, weight: .bold))
-                .foregroundColor(Color.gray)
-            TodayTaskList
+    ZStack {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading) {
+                Text("What's up, Joy!")
+                    .font(Font.system(size: 36, weight: .bold))
+                    .padding(30)
+                
+                VStack(alignment: .leading) {
+                    Text("CATEGOTIES")
+                        .font(Font.system(size: 16, weight: .bold))
+                        .foregroundColor(Color.gray)
+                    HorizontalList
+                }.padding(.leading, 30)
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("Today's Task")
+                        .font(Font.system(size: 16, weight: .bold))
+                        .foregroundColor(Color.gray)
+                    TodayTaskList
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 20)
+                .padding(.trailing, 30)
+                .padding(.leading, 30)
+                
+            }
         }
-        .padding(30)
-        Spacer()
-        HStack {
+        
+        VStack {
             Spacer()
-            Button(action: {
-                //Todo Add task
-            }) {
-                HStack {
+            HStack(alignment: .bottom) {
+                Spacer()
+                Button(action: {
+                    //Todo Add task
+                }) {
                     Image("ic_add_task")
                         .resizable()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 60, height: 60)
                 }
-                .padding(20)
-                .background(Color.clear)
-            }.frame(width: 70, height: 70)
+            }
         }.padding(20)
     }
 }
@@ -61,8 +88,8 @@ private var homeContent: some View {
 private var HorizontalList: some View {
     ScrollView (.horizontal, showsIndicators: false) {
          HStack {             
-             ForEach(categories, id: \.self) {
-                 CategoryItem(item: $0)
+            ForEach(categories, id: \.self) {
+                CategoryItem(item: $0)
             }
          }
     }.frame(height: 140)
@@ -73,44 +100,5 @@ private var TodayTaskList: some View {
         ForEach(todayTasks, id: \.self) {
             TodayTaskItem(item: $0)
        }
-    }
-}
-
-private var leadingButton: some View {
-    HStack(alignment: .center, spacing: 16) {
-        Button(action: {
-            print("settingsButton")
-
-        }) {
-            Image("ic_search")
-                .resizable()
-                .frame(width: 24, height:24)
-        }
-        
-        Button(action: {
-            print("settingsButton")
-
-        }) {
-            Image("ic_notification")
-                .resizable()
-                .frame(width: 24, height:24)
-        }
-    }
-}
-
-private var menuButton: some View {
-    Button(action: {
-        print("menuButton")
-
-    }) {
-        Image("ic_menu")
-            .resizable()
-            .frame(width: 24, height:24)
-    }
-}
-
-struct HomePageView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomePageView()
     }
 }
