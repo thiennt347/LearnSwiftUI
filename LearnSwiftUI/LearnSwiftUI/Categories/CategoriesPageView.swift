@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct CategoriesPageView: View {
-    @Binding var menuClick: Bool
-    var menuAction: (() -> Void)?
+    @State var actionBtnFirst = false
+    @ObservedObject var clickOb = MenuClickedObservable.shared
     
     var body: some View {
         BaseNavigationView(
-            menuClick: self.$menuClick,
+            menuClick: $clickOb.menuClick,
             imgBtnFirst: "ic_search",
             menuAction: {
                 withAnimation(.spring()) {
-                    self.menuClick.toggle()
+                    self.clickOb.menuClick.toggle()
                 }
             }, actionBtnFirst: {
-                print("Search action")
+                self.actionBtnFirst = true
             }, content:
-                Text("CategoriesPageView")
-                    .font(.title)
+                VStack {
+                    Text("CategoriesPageView")
+                        .font(.title)
+                    
+                    NavigationLink(destination:
+                        LearnSwiftUIList(),
+                        isActive: self.$actionBtnFirst) {
+                            Text("")
+                    }.hidden()
+                }
         )
     }
 }
-

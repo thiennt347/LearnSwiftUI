@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct AnalyticsPageView: View {
-    @Binding var menuClick: Bool
-    var menuAction: (() -> Void)?
+    @ObservedObject var clickOb = MenuClickedObservable.shared
     
     var body: some View {
-        BaseNavigationView(menuClick: self.$menuClick,
-                     menuAction: {
+        BaseNavigationView(
+            menuClick: $clickOb.menuClick,
+            menuAction: {
             withAnimation(.spring()) {
-                self.menuClick.toggle()
+                self.clickOb.menuClick.toggle()
             }
         }, content:
             Text("AnalyticsPageView")

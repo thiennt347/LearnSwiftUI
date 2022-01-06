@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct LearnSwiftUIList: View {
+    
     var body: some View {
-        NavigationView {
+        ZStack {
+            Color.white.ignoresSafeArea()
             List(learnSwiftUIDatas, id: \.id) { data in
                 NavigationLink {
                     Detail(data: data)
@@ -17,6 +19,7 @@ struct LearnSwiftUIList: View {
                     LearnSwiftUIRow(data: data)
                 }
             }
+            .listStyle(.plain)
         }.navigationTitle("hello")
     }
 }

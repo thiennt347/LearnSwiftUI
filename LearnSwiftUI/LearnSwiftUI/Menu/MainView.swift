@@ -10,21 +10,23 @@ import SwiftUI
 struct MainView: View {
     @State var selectedTab = "Home"
     @State var menuClick = false
+    @StateObject var clickOb = MenuClickedObservable.shared
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             SideMenu(selectedTab: $selectedTab) {
                 withAnimation(.spring()) {
-                    self.menuClick = false
+                    self.clickOb.menuClick = false
                 }
             }
             GeometryReader { geometry in
                 ZStack {
-                    Home(selectedTab: $selectedTab, menuClick: self.$menuClick)
-                        .cornerRadius(self.menuClick ? 30 : 0)
-                }.offset(x: self.menuClick ? (geometry.size.width - 80) : 0, y: 0)
-                .scaleEffect(self.menuClick ? 0.84 : 1)
+                    Home(selectedTab: $selectedTab)
+                        .cornerRadius(self.clickOb.menuClick ? 30 : 0)
+                }.offset(x: self.clickOb.menuClick ? (geometry.size.width - 80) : 0, y: 0)
+                .scaleEffect(self.clickOb.menuClick ? 0.84 : 1)
                 .ignoresSafeArea()
             }
         }
@@ -36,4 +38,9 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
     }
+}
+
+class MenuClickedObservable: ObservableObject {
+    @Published var menuClick = false
+    static let shared = MenuClickedObservable()
 }

@@ -9,11 +9,8 @@ import SwiftUI
 
 struct Home: View {
     @Binding var selectedTab: String
-    @Binding var menuClick: Bool
     
-    init(selectedTab: Binding<String>,
-         menuClick: Binding<Bool>) {
-        self._menuClick = menuClick
+    init(selectedTab: Binding<String>) {
         self._selectedTab = selectedTab
         UITabBar.appearance().isHidden = true
     }
@@ -22,15 +19,15 @@ struct Home: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             //Views
-            HomePageView(menuClick: $menuClick).tag("Home")
+            HomePageView().tag("Home")
             
-            TemplatesPageView(menuClick: $menuClick).tag("Templates")
+            TemplatesPageView().tag("Templates")
             
-            CategoriesPageView(menuClick: $menuClick).tag("Categories")
+            CategoriesPageView().tag("Categories")
             
-            AnalyticsPageView(menuClick: $menuClick).tag("Analytics")
+            AnalyticsPageView().tag("Analytics")
             
-            SettingsPageView(menuClick: $menuClick).tag("Settings")
+            SettingsPageView().tag("Settings")
         }
     }
 }

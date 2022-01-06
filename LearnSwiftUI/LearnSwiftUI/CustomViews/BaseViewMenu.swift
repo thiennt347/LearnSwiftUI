@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BaseNavigationView<Content>: View where Content: View {
     @Binding var menuClick: Bool
+
+    var clickMenu = MenuClickedObservable.shared
     var imgBtnFirst: String? = nil
     var imgBtnSecond: String? = nil
     
@@ -33,8 +35,9 @@ struct BaseNavigationView<Content>: View where Content: View {
                                                        imgBtnSecond: imgBtnSecond,
                                                       actionBtnFirst: actionBtnFirst,
                                                       actionBtnSecond: actionBtnSecond))
-            }.offset(y: self.menuClick ? 20 : 10)
-        }.background(bgColor)
+            }
+        }.offset(y: self.menuClick ? 20 : 0)
+        .background(bgColor)
     }
 }
 

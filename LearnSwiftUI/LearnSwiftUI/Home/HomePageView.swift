@@ -11,25 +11,36 @@ let categories = [HorizontalData(id: 1, title: "20 Tasks", name: "Business", pro
 let todayTasks = [TodayTask(id: 1, status: 0, name: "Daily meeting with team", taskType: TaskType.Business.rawValue), TodayTask(id: 2, status: 1, name: "Pay for your friend", taskType: TaskType.Personal.rawValue), TodayTask(id: 3, status: 0, name: "Check Emails", taskType: TaskType.Personal.rawValue), TodayTask(id: 4, status: 0, name: "Lunch with Thien", taskType: TaskType.Business.rawValue), TodayTask(id: 5, status: 0, name: "Mutation", taskType: TaskType.Personal.rawValue)]
 
 struct HomePageView: View {
-    @Binding var menuClick: Bool
+    
+    @ObservedObject var clickOb = MenuClickedObservable.shared
     var menuAction: (() -> Void)?
+    
+    @State var actionBtnFirst = false
+    
     var body: some View {
         BaseNavigationView(
-            menuClick: self.$menuClick,
-            imgBtnFirst: "ic_search",
+            menuClick: $clickOb.menuClick  , imgBtnFirst: "ic_search",
             imgBtnSecond: "ic_notification",
             menuAction: {
                 withAnimation(.spring()) {
-                    self.menuClick.toggle()
+                    self.clickOb.menuClick.toggle()
                 }
             }, actionBtnFirst: {
-                print("Search action")
+                self.actionBtnFirst = true
             }, actionBtnSecond: {
                 print("Notification action")
             },
             bgColor: Color.black.opacity(0.03),
             content:
-                homeContent
+                ZStack {
+                    NavigationLink(destination:
+                        LearnSwiftUIList(),
+                        isActive: self.$actionBtnFirst) {
+                            Text("")
+                    }.hidden()
+                    
+                    homeContent
+                }
         )
     }
 }
