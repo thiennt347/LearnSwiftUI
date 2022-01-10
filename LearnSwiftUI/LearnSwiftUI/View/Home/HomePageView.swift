@@ -21,13 +21,7 @@ struct HomePageView: View {
         BaseNavigationView(
             menuClick: $clickOb.menuClick  , imgBtnFirst: "ic_search",
             imgBtnSecond: "ic_notification",
-            menuAction: {
-                withAnimation(.spring()) {
-                    self.clickOb.menuClick.toggle()
-                }
-            }, actionBtnFirst: {
-                self.actionBtnFirst = true
-            }, actionBtnSecond: {
+            actionBtnSecond: {
                 print("Notification action")
             },
             bgColor: Color.black.opacity(0.03),
@@ -42,6 +36,14 @@ struct HomePageView: View {
                     homeContent
                 }
         )
+        .menuTapped {
+            withAnimation(.spring()) {
+                self.clickOb.menuClick.toggle()
+            }
+        }
+        .btnFirstTapped {
+            self.actionBtnFirst = true
+        }
     }
 }
 
@@ -63,14 +65,14 @@ private var homeContent: some View {
                     Text("CATEGOTIES")
                         .font(Font.system(size: 16, weight: .bold))
                         .foregroundColor(Color.gray)
-                    HorizontalList
+                    horizontalList
                 }.padding(.leading, 30)
                 
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Today's Task")
                         .font(Font.system(size: 16, weight: .bold))
                         .foregroundColor(Color.gray)
-                    TodayTaskList
+                    todayTaskList
                 }
                 .padding(.top, 20)
                 .padding(.bottom, 20)
@@ -96,7 +98,7 @@ private var homeContent: some View {
     }
 }
 
-private var HorizontalList: some View {
+private var horizontalList: some View {
     ScrollView (.horizontal, showsIndicators: false) {
          HStack {             
             ForEach(categories, id: \.self) {
@@ -106,7 +108,7 @@ private var HorizontalList: some View {
     }.frame(height: 140)
 }
 
-private var TodayTaskList: some View {
+private var todayTaskList: some View {
     VStack {
         ForEach(todayTasks, id: \.self) {
             TodayTaskItem(item: $0)

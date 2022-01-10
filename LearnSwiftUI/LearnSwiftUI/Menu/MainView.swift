@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainView: View {
     @State var selectedTab = "Home"
-    @State var menuClick = false
     @StateObject var clickOb = MenuClickedObservable.shared
     
     var body: some View {

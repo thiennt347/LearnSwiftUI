@@ -28,16 +28,35 @@ struct BaseNavigationView<Content>: View where Content: View {
                 .background(bgColor)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading:
-                                        NavigationLeadingButton(imageString: "ic_menu",
-                                                                action: {
-                    self.menuAction?()
-                }), trailing: NavigationTrailingButton(imgBtnFirst: imgBtnFirst,
+                                        NavigationLeadingButton(imageString: "ic_menu")
+                                        .btnleadingTapped(action: {
+                                            self.menuAction?()
+                                        })
+                                    , trailing: NavigationTrailingButton(imgBtnFirst: imgBtnFirst,
                                                        imgBtnSecond: imgBtnSecond,
                                                       actionBtnFirst: actionBtnFirst,
                                                       actionBtnSecond: actionBtnSecond))
             }
         }.offset(y: self.menuClick ? 20 : 0)
         .background(bgColor)
+    }
+    
+    func menuTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.menuAction = action
+        return copy
+    }
+    
+    func btnFirstTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.actionBtnFirst = action
+        return copy
+    }
+    
+    func btnSecondTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.actionBtnSecond = action
+        return copy
     }
 }
 
@@ -46,11 +65,19 @@ struct NavigationLeadingButton: View {
     var imageString: String
     var action: (() -> Void)?
     var body: some View {
-        Button(action: action!) {
+        Button(action: {
+            action?()
+        }) {
             Image(imageString)
                 .resizable()
                 .frame(width: 24, height:24)
         }
+    }
+    
+    func btnleadingTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.action = action
+        return copy
     }
 }
 
@@ -83,5 +110,17 @@ struct NavigationTrailingButton: View {
                 }
             }
         }
+    }
+    
+    func btnFirstTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.actionBtnFirst = action
+        return copy
+    }
+    
+    func btnSecondTapped(action: @escaping () -> Void ) -> Self {
+        var copy = self
+        copy.actionBtnSecond = action
+        return copy
     }
 }

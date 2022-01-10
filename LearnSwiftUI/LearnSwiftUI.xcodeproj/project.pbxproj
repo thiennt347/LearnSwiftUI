@@ -14,6 +14,12 @@
 		8C8526DD278598A100BDC6C2 /* CategoriesPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526DC278598A100BDC6C2 /* CategoriesPageView.swift */; };
 		8C8526E02785992300BDC6C2 /* TemplatesPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526DF2785992300BDC6C2 /* TemplatesPageView.swift */; };
 		8C8526E327859A1200BDC6C2 /* BaseViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526E227859A1200BDC6C2 /* BaseViewMenu.swift */; };
+		8C8526E92786FC1300BDC6C2 /* CollectionViewSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526E82786FC1300BDC6C2 /* CollectionViewSwiftUI.swift */; };
+		8C8526ED278708BD00BDC6C2 /* CategotiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526EC278708BD00BDC6C2 /* CategotiesViewCell.swift */; };
+		8C8526EF27870B2500BDC6C2 /* CategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526EE27870B2500BDC6C2 /* CategoriesData.swift */; };
+		8CC07177278C26B900410BA0 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC07176278C26B900410BA0 /* MyAppDelegate.swift */; };
+		8CC0717B278C3D2F00410BA0 /* ListsTaskPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */; };
+		8CC0717D278C4CED00410BA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC0717C278C4CED00410BA0 /* UIView+Extension.swift */; };
 		8CE20211277D6B050002926D /* LearnSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE20210277D6B050002926D /* LearnSwiftUIApp.swift */; };
 		8CE20213277D6B050002926D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE20212277D6B050002926D /* ContentView.swift */; };
 		8CE20215277D6B070002926D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CE20214277D6B070002926D /* Assets.xcassets */; };
@@ -44,6 +50,13 @@
 		8C8526DC278598A100BDC6C2 /* CategoriesPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesPageView.swift; sourceTree = "<group>"; };
 		8C8526DF2785992300BDC6C2 /* TemplatesPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageView.swift; sourceTree = "<group>"; };
 		8C8526E227859A1200BDC6C2 /* BaseViewMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewMenu.swift; sourceTree = "<group>"; };
+		8C8526E82786FC1300BDC6C2 /* CollectionViewSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSwiftUI.swift; sourceTree = "<group>"; };
+		8C8526EC278708BD00BDC6C2 /* CategotiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategotiesViewCell.swift; sourceTree = "<group>"; };
+		8C8526EE27870B2500BDC6C2 /* CategoriesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesData.swift; sourceTree = "<group>"; };
+		8CC07174278C25C200410BA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8CC07176278C26B900410BA0 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
+		8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTaskPageView.swift; sourceTree = "<group>"; };
+		8CC0717C278C4CED00410BA0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		8CE2020D277D6B050002926D /* LearnSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE20210277D6B050002926D /* LearnSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSwiftUIApp.swift; sourceTree = "<group>"; };
 		8CE20212277D6B050002926D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				8C8526D02785545000BDC6C2 /* UIScreen+Extension.swift */,
+				8CC0717C278C4CED00410BA0 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -105,7 +119,9 @@
 		8C8526DB2785988900BDC6C2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8C8526EE27870B2500BDC6C2 /* CategoriesData.swift */,
 				8C8526DC278598A100BDC6C2 /* CategoriesPageView.swift */,
+				8C8526EC278708BD00BDC6C2 /* CategotiesViewCell.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -122,8 +138,38 @@
 			isa = PBXGroup;
 			children = (
 				8C8526E227859A1200BDC6C2 /* BaseViewMenu.swift */,
+				8C8526E82786FC1300BDC6C2 /* CollectionViewSwiftUI.swift */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		8C8526E52786EECC00BDC6C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CE20234277D9B090002926D /* Home */,
+				8C8526DB2785988900BDC6C2 /* Categories */,
+				8C8526DE2785991700BDC6C2 /* Templates */,
+				8C8526D82785984300BDC6C2 /* Analytics */,
+				8C8526D227855ED800BDC6C2 /* Settings */,
+				8CC07179278C3D0C00410BA0 /* ListsTask */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8CC07175278C26AB00410BA0 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				8CC07176278C26B900410BA0 /* MyAppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		8CC07179278C3D0C00410BA0 /* ListsTask */ = {
+			isa = PBXGroup;
+			children = (
+				8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */,
+			);
+			path = ListsTask;
 			sourceTree = "<group>";
 		};
 		8CE20204277D6B050002926D = {
@@ -145,13 +191,11 @@
 		8CE2020F277D6B050002926D /* LearnSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				8CC07175278C26AB00410BA0 /* AppDelegate */,
+				8CC07174278C25C200410BA0 /* Info.plist */,
 				8CE79303278458E2002BD8D9 /* Menu */,
+				8C8526E52786EECC00BDC6C2 /* View */,
 				8C8526E127859A0300BDC6C2 /* CustomViews */,
-				8CE20234277D9B090002926D /* Home */,
-				8C8526DE2785991700BDC6C2 /* Templates */,
-				8C8526DB2785988900BDC6C2 /* Categories */,
-				8C8526D82785984300BDC6C2 /* Analytics */,
-				8C8526D227855ED800BDC6C2 /* Settings */,
 				8C8526CF2785543D00BDC6C2 /* Extension */,
 				8CE20233277D9A980002926D /* Demo */,
 				8CE20224277D8DB10002926D /* Resources */,
@@ -315,8 +359,10 @@
 				8CE79305278458F6002BD8D9 /* MainView.swift in Sources */,
 				8CE7930727845DAE002BD8D9 /* MenuButton.swift in Sources */,
 				8CE7930927846758002BD8D9 /* SideMenu.swift in Sources */,
+				8C8526E92786FC1300BDC6C2 /* CollectionViewSwiftUI.swift in Sources */,
 				8CE2022E277D8F940002926D /* LearnSwiftUIRow.swift in Sources */,
 				8C8526DA2785985D00BDC6C2 /* AnalyticsPageView.swift in Sources */,
+				8CC0717B278C3D2F00410BA0 /* ListsTaskPageView.swift in Sources */,
 				8C8526D12785545000BDC6C2 /* UIScreen+Extension.swift in Sources */,
 				8CE20213277D6B050002926D /* ContentView.swift in Sources */,
 				8C8526E327859A1200BDC6C2 /* BaseViewMenu.swift in Sources */,
@@ -327,6 +373,7 @@
 				8CE20232277D93E80002926D /* Detail.swift in Sources */,
 				8CE20223277D71F40002926D /* Mapview.swift in Sources */,
 				8CE2023A277DB07D0002926D /* DataModel.swift in Sources */,
+				8CC0717D278C4CED00410BA0 /* UIView+Extension.swift in Sources */,
 				8CE20230277D91360002926D /* LearnSwiftUIList.swift in Sources */,
 				8CE2022A277D8F070002926D /* ModelData.swift.swift in Sources */,
 				8CE20211277D6B050002926D /* LearnSwiftUIApp.swift in Sources */,
@@ -334,6 +381,9 @@
 				8CE2023D277DBF5E0002926D /* CategoryRow.swift in Sources */,
 				8C8526DD278598A100BDC6C2 /* CategoriesPageView.swift in Sources */,
 				8CE20228277D8DF70002926D /* LearnSwiftModel.swift in Sources */,
+				8CC07177278C26B900410BA0 /* MyAppDelegate.swift in Sources */,
+				8C8526EF27870B2500BDC6C2 /* CategoriesData.swift in Sources */,
+				8C8526ED278708BD00BDC6C2 /* CategotiesViewCell.swift in Sources */,
 				8C8526D427855EE500BDC6C2 /* SettingsPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +517,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LearnSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LearnSwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -495,6 +546,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LearnSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LearnSwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
