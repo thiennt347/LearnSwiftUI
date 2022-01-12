@@ -21,12 +21,22 @@ struct SideMenu: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Image("icybay")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 70, height: 70)
-                .cornerRadius(10)
+            HStack {
+                Image("icybay")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 70, height: 70)
+                    .cornerRadius(10)
                 .padding(.top, 70)
+                Spacer()
+                Button {
+                    self.action?()
+                } label: {
+                    Image(systemName: "chevron.backward.circle")
+                        .foregroundColor(.white)
+                        .font(Font.system(size: 40))
+                }
+            }.padding(.trailing, 20)
             
             HStack {
                 Text("Joy MitChell")
