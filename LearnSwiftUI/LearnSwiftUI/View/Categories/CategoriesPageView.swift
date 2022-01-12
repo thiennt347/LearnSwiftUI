@@ -63,7 +63,7 @@ struct CategoriesPageView: View {
                    showIndicators: false) { data in
             ZStack {
                 NavigationLink {
-                    ListsTaskPageView(data: data)
+                    ListsTaskPageView(category: data)
                 } label: {
                     CategotiesViewCell(data: data)
                 }
