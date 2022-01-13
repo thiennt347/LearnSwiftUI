@@ -81,20 +81,16 @@ private var homeContent: some View {
                 
             }
         }
-        
-        VStack {
-            Spacer()
-            HStack(alignment: .bottom) {
-                Spacer()
-                Button(action: {
-                    //Todo Add task
-                }) {
-                    Image("ic_add_task")
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                }
-            }
-        }.padding(20)
+        .overlay(
+            Button(action: {
+                print("hello")
+            }, label: {
+                Image("ic_add_task")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+            })
+            .padding(), alignment: .bottomTrailing
+        )
     }
 }
 

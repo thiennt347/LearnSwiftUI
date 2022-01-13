@@ -6,36 +6,10 @@
 //
 
 import SwiftUI
-struct TaskSection: Identifiable {
-    var id = UUID()
-    var title: String
-    var items: [TestData]
-}
-
-struct TestData: Identifiable {
-    var id = UUID()
-    var title: String
-    var date: Date = Date.now
-    var isDone: Bool = false
-}
 
 struct ListsTaskPageView: View {
     @Environment(\.presentationMode) var presentationMode
-    
-    @State var taskData = [
-            TaskSection(title: "Late", items: [
-                TestData(title: "Call Max", date: .now, isDone: false)
-            ]),
-            
-            TaskSection(title: "Today", items: [
-                TestData(title: "Practice piano", date: .now, isDone: false),
-                TestData(title: "Learn Spanish", date: .now, isDone: false)
-                
-            ]),
-            TaskSection(title: "Done", items: [
-                TestData(title: "Finalize presentation", date: .now, isDone: true)
-            ])
-        ]
+    @StateObject var taskModel = TaskViewModel.shared
     
     let category: CategoryModel
     var body: some View {
@@ -46,15 +20,15 @@ struct ListsTaskPageView: View {
                 ZStack {
                     Color.white
                     List {
-                        ForEach(Array($taskData.enumerated()), id: \.offset) { indexSection, section in
+                        ForEach(Array($taskModel.taskData.enumerated()), id: \.offset) { indexSection, section in
                             Section(header:
-                                ListTaskSection(data: section)
+                                        ListTaskSection(data: section)
                             ) {
                                 ForEach(Array(section.items.enumerated()), id: \.offset) { indexRow, row in
                                     TaskRow(data: row, section: section)
                                         .swipeActions {
                                             Button {
-                                                self.taskData[indexSection].items.remove(at: indexRow)
+                                                taskModel.taskData[indexSection].items.remove(at: indexRow)
                                             } label: {
                                                 Image(systemName: "trash")
                                                     .foregroundColor(.white)
@@ -76,21 +50,23 @@ struct ListsTaskPageView: View {
                     }
                 }
                 .cornerRadius(20, corners: [.topLeft, .topRight])
-            }.ignoresSafeArea(edges: .bottom)
+            }
+            .ignoresSafeArea(edges: .bottom)
+            .overlay(
+                Button(action: {
+                    taskModel.addNewTask.toggle()
+                }, label: {
+                    Image("ic_add_task")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                }).padding(), alignment: .bottomTrailing
+            ).fullScreenCover(isPresented: $taskModel.addNewTask) {
+                AddNewTaskPage()
+            }
             
-            VStack {
-                Spacer()
-                HStack(alignment: .bottom) {
-                    Spacer()
-                    Button(action: {
-                        //Todo Add task
-                    }) {
-                        Image("ic_add_task")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                    }
-                }
-            }.padding(20)
+        }
+        .onAppear {
+            print("onAppear")
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: leadingBtn, trailing: trailingBtn)
@@ -113,7 +89,7 @@ struct ListsTaskPageView: View {
                 .foregroundColor(Color.white)
         })
     }
-
+    
     var titleView: some View {
         VStack(alignment: .leading) {
             VStack {
@@ -144,7 +120,7 @@ struct ListsTaskPageView: View {
 
 
 struct TaskRow: View {
-    @Binding var data: TestData
+    @Binding var data: Task
     @Binding var section: TaskSection
     
     var body: some View {
@@ -174,7 +150,7 @@ struct TaskRow: View {
                         return
                     }
                     data.isDone.toggle()
-            }
+                }
         }
         .opacity(section.title == "Done" ? 0.5 : 1)
         .padding(.leading, 30)

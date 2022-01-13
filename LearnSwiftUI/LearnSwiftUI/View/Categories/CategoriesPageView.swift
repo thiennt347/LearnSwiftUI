@@ -36,23 +36,18 @@ struct CategoriesPageView: View {
                     }
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
-                    
-                    VStack {
-                        Spacer()
-                        HStack(alignment: .bottom) {
-                            Spacer()
-                            Button(action: {
-                                //Todo Add task
-                            }) {
-                                Image("ic_add_task")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                            }
-                        }
-                    }.padding(20)
-                    .padding(.bottom, 40)
                 }
                 .ignoresSafeArea(edges: .bottom)
+                .overlay(
+                    Button(action: {
+                        print("hello")
+                    }, label: {
+                        Image("ic_add_task")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                    })
+                    .padding(), alignment: .bottomTrailing
+                )
         )
     }
     

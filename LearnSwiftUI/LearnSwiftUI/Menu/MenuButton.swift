@@ -35,7 +35,8 @@ struct MenuButton: View {
             .background(
                 Color.white.opacity(selectedTab == title ? 1 : 0)
             )
-        }.cornerRadius(8)
+        }
+        .cornerRadius(8)
     }
 }
 
