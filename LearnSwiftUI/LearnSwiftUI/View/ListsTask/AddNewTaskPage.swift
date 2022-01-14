@@ -9,9 +9,11 @@ import SwiftUI
 
 struct AddNewTaskPage: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var taskModel = TaskViewModel.shared
-
-    @State var taskDesc: String = ""
+    @StateObject var taskModel = TaskViewModel.shared
+    @Environment(\.managedObjectContext) var context
+    
+    @State var taskName: String = ""
+    var category: CategoryDB
     
     var body: some View {
         NavigationView {
@@ -22,7 +24,7 @@ struct AddNewTaskPage: View {
                             .font(Font.system(size: 18))
                             .hLeading()
                             .foregroundColor(.gray)
-                        MultilineTextView(text: $taskDesc)
+                        MultilineTextView(text: $taskName)
                             .frame(height: 200)
                             .disableAutocorrection(true)
                         Divider()
@@ -31,21 +33,29 @@ struct AddNewTaskPage: View {
                     Spacer()
                     
                     Button {
-                        if self.taskDesc.isEmpty {
+                        if self.taskName.isEmpty {
                             return
                         }
-                        taskModel.taskData[1].items.append(Task(title: taskDesc, date: Date.now))
+                        let taskDB = TaskDB(context: self.context)
+                        taskDB.id = UUID().uuidString
+                        taskDB.taskName = taskName
+                        taskDB.taskDate = Date.now
+                        taskDB.categoryID = category.id
+                        taskDB.categoryDB = category
+                        taskDB.categoryDB?.totalTask += 1
+                        
+                        try? context.save()
                         self.dismiss()
                     } label: {
                         Text("Create")
-                            .foregroundColor(self.taskDesc.isEmpty ? .black.opacity(0.5) : .white)
+                            .foregroundColor(self.taskName.isEmpty ? .black.opacity(0.5) : .white)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                     }
-                    .disabled(self.taskDesc.isEmpty)
+                    .disabled(self.taskName.isEmpty)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
-                    .background(self.taskDesc.isEmpty ? .gray.opacity(0.5) : Color.blue)
+                    .background(self.taskName.isEmpty ? .gray.opacity(0.5) : Color.blue)
                     .cornerRadius(10)
                     .padding()
                 }
@@ -90,11 +100,5 @@ struct AddNewTaskPage: View {
             .foregroundColor(.gray)
             
         }.hLeading()
-    }
-}
-
-struct AddNewTaskPage_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNewTaskPage()
     }
 }

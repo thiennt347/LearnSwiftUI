@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ListsTaskPageView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var taskModel = TaskViewModel.shared
+    @EnvironmentObject var taskModel: TaskViewModel
     
-    let category: CategoryModel
+    let category: CategoryDB
     var body: some View {
         ZStack {
             Color.blue.ignoresSafeArea()
@@ -19,35 +19,7 @@ struct ListsTaskPageView: View {
                 titleView
                 ZStack {
                     Color.white
-                    List {
-                        ForEach(Array($taskModel.taskData.enumerated()), id: \.offset) { indexSection, section in
-                            Section(header:
-                                        ListTaskSection(data: section)
-                            ) {
-                                ForEach(Array(section.items.enumerated()), id: \.offset) { indexRow, row in
-                                    TaskRow(data: row, section: section)
-                                        .swipeActions {
-                                            Button {
-                                                taskModel.taskData[indexSection].items.remove(at: indexRow)
-                                            } label: {
-                                                Image(systemName: "trash")
-                                                    .foregroundColor(.white)
-                                            }
-                                        }
-                                }
-                            }
-                            .textCase(nil)
-                        }
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                    }
-                    .padding(.top, 10)
-                    .listStyle(.grouped)
-                    .background(Color.white .ignoresSafeArea())
-                    .onAppear {
-                        // Set the default to clear
-                        UITableView.appearance().backgroundColor = .clear
-                    }
+                    listTaskView(categoryID: category.id ?? "")
                 }
                 .cornerRadius(20, corners: [.topLeft, .topRight])
             }
@@ -61,7 +33,7 @@ struct ListsTaskPageView: View {
                         .frame(width: 60, height: 60)
                 }).padding(), alignment: .bottomTrailing
             ).fullScreenCover(isPresented: $taskModel.addNewTask) {
-                AddNewTaskPage()
+                AddNewTaskPage(category: category)
             }
             
         }
@@ -93,20 +65,20 @@ struct ListsTaskPageView: View {
     var titleView: some View {
         VStack(alignment: .leading) {
             VStack {
-                Image(systemName: category.image)
+                Image(systemName: category.imageName ?? "")
                     .font(Font.system(size: 22))
                     .padding()
-                    .foregroundColor(category.imageColor)
+                    .foregroundColor(Color(hex: category.imageColor ?? ""))
             }
             .frame(width: 50, height: 50)
             .background(Color.white)
             .clipShape(Circle())
             
-            Text(category.name)
+            Text(category.name ?? "")
                 .font(Font.system(size: 40, weight: .heavy))
                 .foregroundColor(.white)
             
-            Text("\(category.numberTasks) tasks")
+            Text("\(category.totalTask) tasks")
                 .font(Font.system(size: 16, weight: .regular))
                 .foregroundColor(.white)
         }
@@ -118,60 +90,86 @@ struct ListsTaskPageView: View {
     }
 }
 
-
-struct TaskRow: View {
-    @Binding var data: Task
-    @Binding var section: TaskSection
+struct listTaskView: View {
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest var request: FetchedResults<TaskDB>
+    
+    init(categoryID: String) {
+        let predicate = NSPredicate(format: "categoryID = %@", categoryID)
+        _request = FetchRequest(entity: TaskDB.entity(), sortDescriptors: [], predicate: predicate)
+    }
+    
+    func deleteObject(object: TaskDB) {
+        object.categoryDB?.totalTask -= 1
+        
+        context.delete(object)
+        try? context.save()
+    }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                if data.isDone {
-                    Text(data.title)
-                        .strikethrough()
-                        .font(Font.system(size: 16))
-                        .foregroundColor(.blue)
-                } else {
-                    Text(data.title)
-                        .font(Font.system(size: 16, weight: .regular))
-                }
-                
-                Text(data.date.dateToString(dateFormat: "HH:mm"))
-                    .font(Font.system(size: 16, weight: .regular))
-                    .foregroundColor(section.title == "Late" ? Color.red : .gray)
-            }
-            .hLeading()
-            
-            Image(systemName: data.isDone ? "checkmark.square.fill" : "square")
-                .foregroundColor(data.isDone ? Color(UIColor.systemBlue) : Color.gray)
-                .font(Font.system(size: 24))
-                .onTapGesture {
-                    if section.title == "Done" {
-                        return
+        List {
+            if let late = request.filter{($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)}, late.count > 0 {
+                Section(header: ListTaskSection(title: "Late")) {
+                    ForEach(late, id: \.id) { task in
+                        TaskRow(data: task, title: "Late")
+                            .swipeActions {
+                                Button {
+                                    self.deleteObject(object: task)
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.white)
+                                }
+                            }
+
                     }
-                    data.isDone.toggle()
-                }
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    
+                }.textCase(nil)
+            }
+            
+            if let today = request.filter{($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)}, today.count > 0 {
+                Section(header: ListTaskSection(title: "Today")) {
+                    ForEach(today, id: \.id) { task in
+                        TaskRow(data: task, title: "Today")
+                            .swipeActions {
+                                Button {
+                                    self.deleteObject(object: task)
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.white)
+                                }
+                            }
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    
+                }.textCase(nil)
+            }
+            
+            if let data = request.filter{$0.isComplete == true}, data.count > 0 {
+                Section(header: ListTaskSection(title: "Done")) {
+                    ForEach(data, id: \.id) { task in
+                        TaskRow(data: task, title: "Done")
+                            .swipeActions {
+                                Button {
+                                    self.deleteObject(object: task)
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.white)
+                                }
+                            }
+                    }.listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    
+                }.textCase(nil)
+            }
         }
-        .opacity(section.title == "Done" ? 0.5 : 1)
-        .padding(.leading, 30)
-        .padding(.trailing, 30)
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+        .listStyle(.grouped)
+        .background(Color.white .ignoresSafeArea())
+        .onAppear {
+            // Set the default to clear
+            UITableView.appearance().backgroundColor = .clear
+        }
     }
 }
-
-struct ListTaskSection: View {
-    @Binding var data: TaskSection
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(data.title)
-                .font(Font.system(size: 14))
-                .foregroundColor(.gray)
-        }
-        .opacity(data.title == "Done" ? 0.5 : 1)
-        .padding(.leading, 30)
-        .padding(.trailing, 30)
-        .padding(.top, 20)
-    }
-}
-

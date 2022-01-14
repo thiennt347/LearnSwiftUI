@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryDB" representedClassName=".CategoryDB" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="imageColor" optional="YES" attributeType="String"/>
+        <attribute name="imageName" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="totalTask" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="taskDB" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskDB" inverseName="categoryDB" inverseEntity="TaskDB"/>
+    </entity>
+    <entity name="TaskDB" representedClassName=".TaskDB" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryID" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="taskDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="taskName" optional="YES" attributeType="String"/>
+        <relationship name="categoryDB" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryDB" inverseName="taskDB" inverseEntity="CategoryDB"/>
+    </entity>
+    <elements>
+        <element name="CategoryDB" positionX="-54" positionY="18" width="128" height="119"/>
+        <element name="TaskDB" positionX="-63" positionY="-18" width="128" height="119"/>
+    </elements>
+</model>

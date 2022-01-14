@@ -11,7 +11,7 @@ struct CategoriesPageView: View {
     @State var actionBtnFirst = false
     @ObservedObject var clickOb = MenuClickedObservable.shared
     
-    @StateObject var categories = CategoryViewModel.shared
+    @EnvironmentObject var categories: CategoryViewModel
     
     var body: some View {
         BaseNavigationView(
@@ -31,7 +31,7 @@ struct CategoriesPageView: View {
                         }
                         .padding(.top, 20)
                         .padding(.leading, 20)
-                        listsCategories
+                        CategoriesCollectionView(spacing: 16, showIndicators: false)
                         Spacer()
                     }
                     .padding(.leading, 20)
@@ -40,29 +40,16 @@ struct CategoriesPageView: View {
                 .ignoresSafeArea(edges: .bottom)
                 .overlay(
                     Button(action: {
-                        print("hello")
+                        categories.newCategory.toggle()
                     }, label: {
                         Image("ic_add_task")
                             .resizable()
                             .frame(width: 60, height: 60)
                     })
                     .padding(), alignment: .bottomTrailing
-                )
+                ).fullScreenCover(isPresented: $categories.newCategory, content: {
+                    AddNewCategoryView()
+                })
         )
-    }
-    
-    private var listsCategories: some View {
-        Collection(data: $categories.categories,
-                   cols: 2,
-                   spacing: 16,
-                   showIndicators: false) { data in
-            ZStack {
-                NavigationLink {
-                    ListsTaskPageView(category: data)
-                } label: {
-                    CategotiesViewCell(data: data)
-                }
-            }
-        }.padding(.top, 10)
     }
 }

@@ -9,13 +9,19 @@ import SwiftUI
 
 @main
 struct LearnSwiftUIApp: App {
+    
     @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) private var appDelegate
+    let persistentController  = PersistentController.shared
+    
     @State var name: String = ""
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, persistentController.container.viewContext)
+                .environmentObject(TaskViewModel.shared)
+                .environmentObject(CategoryViewModel.shared)
                 .onOpenURL(perform: { url in
                     name = url.valueOf("name") ?? ""
                                         
@@ -26,6 +32,7 @@ struct LearnSwiftUIApp: App {
             switch phase {
             case .background:
                 print("App State : Background")
+                persistentController.saveContext()
             case .inactive:
                 print("App State : Inactive")
             case .active:
