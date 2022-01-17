@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 struct CategoryModel: Hashable {
     let id: String? = nil
@@ -16,23 +17,39 @@ struct CategoryModel: Hashable {
     let numberTasks: Int
 }
 
-class CategoryViewModel: ObservableObject {
-
+class CategoryViewModel: NSObject, ObservableObject {
     static let shared = CategoryViewModel()
     
     @Published var newCategory: Bool = false
+    @Published var addNewTask: Bool = false
     @Published var pickerImage: Bool = false
     @Published var pickerColor: Bool = false
     
-    @Published var categories: [CategoryModel] = []
+    @Published var categories: [CategoryDB] = []
     
-    @FetchRequest(
-      // 2.
-      entity: CategoryDB.entity(),
-      // 3.
-      sortDescriptors: []
-      //,predicate: NSPredicate(format: "genre contains 'Action'")
-      // 4.
-    ) var categoriesDB: FetchedResults<CategoryDB>
+    func addTask(taskName: String,
+                 taskDate: Date,
+                 category: CategoryDB,
+                 context: NSManagedObjectContext) {
+        let taskDB = TaskDB(context: context)
+        taskDB.id = UUID().uuidString
+        taskDB.taskName = taskName
+        taskDB.taskDate = taskDate
+        taskDB.categoryID = category.id
+        taskDB.categoryDB = category
+        try? context.save()
+    }
     
+    func addCategory(categoryName: String,
+                     icon: String,
+                     color: Color,
+                     context: NSManagedObjectContext) {
+        let categoryDB = CategoryDB(context: context)
+        categoryDB.id = UUID().uuidString
+        categoryDB.imageColor = color.hexaRGB
+        categoryDB.imageName = icon
+        categoryDB.name = categoryName
+        
+        try? context.save()
+    }
 }

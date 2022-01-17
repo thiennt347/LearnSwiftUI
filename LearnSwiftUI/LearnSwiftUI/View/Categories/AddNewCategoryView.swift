@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddNewCategoryView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var category = CategoryViewModel.shared
+    @StateObject var category = CategoryViewModel()
 
     @State var categoryName: String = ""
     @State private var icon = "message"
@@ -38,15 +38,10 @@ struct AddNewCategoryView: View {
                         if self.categoryName.isEmpty {
                             return
                         }
-                        
-                        let categoryDB = CategoryDB(context: self.context)
-                        categoryDB.id = UUID().uuidString
-                        categoryDB.imageColor = self.color.hexaRGB
-                        categoryDB.imageName = self.icon
-                        categoryDB.name = self.categoryName
-                        
-                        try? context.save()
-                        
+                        category.addCategory(categoryName: self.categoryName,
+                                             icon: self.icon,
+                                             color: self.color,
+                                             context: context)
                         self.dismiss()
                     } label: {
                         Text("Create")

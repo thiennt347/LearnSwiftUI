@@ -9,9 +9,20 @@ import SwiftUI
 
 struct ListsTaskPageView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var taskModel: TaskViewModel
+    @StateObject var categoryVM = CategoryViewModel.shared
     
-    let category: CategoryDB
+    @Environment(\.managedObjectContext) var context
+
+    let index: Int
+    
+    @FetchRequest var tasks: FetchedResults<TaskDB>
+    
+    init(index: Int, categoryID: String) {
+        self.index = index
+        let predicate = NSPredicate(format: "categoryID = %@", categoryID)
+        _tasks = FetchRequest(entity: TaskDB.entity(), sortDescriptors: [], predicate: predicate)
+    }
+
     var body: some View {
         ZStack {
             Color.blue.ignoresSafeArea()
@@ -19,26 +30,23 @@ struct ListsTaskPageView: View {
                 titleView
                 ZStack {
                     Color.white
-                    listTaskView(categoryID: category.id ?? "")
+                    listTaskView
                 }
                 .cornerRadius(20, corners: [.topLeft, .topRight])
             }
             .ignoresSafeArea(edges: .bottom)
             .overlay(
                 Button(action: {
-                    taskModel.addNewTask.toggle()
+                    categoryVM.addNewTask.toggle()
                 }, label: {
                     Image("ic_add_task")
                         .resizable()
                         .frame(width: 60, height: 60)
                 }).padding(), alignment: .bottomTrailing
-            ).fullScreenCover(isPresented: $taskModel.addNewTask) {
-                AddNewTaskPage(category: category)
+            ).fullScreenCover(isPresented: $categoryVM.addNewTask) {
+                AddNewTaskPage(category: self.categoryVM.categories[index])
             }
             
-        }
-        .onAppear {
-            print("onAppear")
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: leadingBtn, trailing: trailingBtn)
@@ -65,20 +73,20 @@ struct ListsTaskPageView: View {
     var titleView: some View {
         VStack(alignment: .leading) {
             VStack {
-                Image(systemName: category.imageName ?? "")
+                Image(systemName: self.categoryVM.categories[index].imageName ?? "")
                     .font(Font.system(size: 22))
                     .padding()
-                    .foregroundColor(Color(hex: category.imageColor ?? ""))
+                    .foregroundColor(Color(hex: self.categoryVM.categories[index].imageColor ?? ""))
             }
             .frame(width: 50, height: 50)
             .background(Color.white)
             .clipShape(Circle())
             
-            Text(category.name ?? "")
+            Text(self.categoryVM.categories[index].name ?? "")
                 .font(Font.system(size: 40, weight: .heavy))
                 .foregroundColor(.white)
             
-            Text("\(category.totalTask) tasks")
+            Text("\(self.categoryVM.categories[index].tasks.count) tasks")
                 .font(Font.system(size: 16, weight: .regular))
                 .foregroundColor(.white)
         }
@@ -88,78 +96,47 @@ struct ListsTaskPageView: View {
         .padding(.bottom, 20)
         .hLeading()
     }
-}
-
-struct listTaskView: View {
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest var request: FetchedResults<TaskDB>
     
-    init(categoryID: String) {
-        let predicate = NSPredicate(format: "categoryID = %@", categoryID)
-        _request = FetchRequest(entity: TaskDB.entity(), sortDescriptors: [], predicate: predicate)
-    }
-    
-    func deleteObject(object: TaskDB) {
-        object.categoryDB?.totalTask -= 1
-        
-        context.delete(object)
+    func deleteTask(at indexSets: IndexSet) {
+        indexSets.forEach { index in
+            self.context.delete(self.tasks[index])
+        }
         try? context.save()
     }
     
-    var body: some View {
+    var listTaskView: some View {
         List {
-            if let late = request.filter{($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)}, late.count > 0 {
+            if let late = self.tasks.filter{($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)}, late.count > 0 {
                 Section(header: ListTaskSection(title: "Late")) {
                     ForEach(late, id: \.id) { task in
                         TaskRow(data: task, title: "Late")
-                            .swipeActions {
-                                Button {
-                                    self.deleteObject(object: task)
-                                } label: {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.white)
-                                }
-                            }
-
                     }
+                    .onDelete(perform: deleteTask)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     
                 }.textCase(nil)
             }
             
-            if let today = request.filter{($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)}, today.count > 0 {
+            if let today = self.tasks.filter{($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)}, today.count > 0 {
                 Section(header: ListTaskSection(title: "Today")) {
                     ForEach(today, id: \.id) { task in
                         TaskRow(data: task, title: "Today")
-                            .swipeActions {
-                                Button {
-                                    self.deleteObject(object: task)
-                                } label: {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.white)
-                                }
-                            }
                     }
+                    .onDelete(perform: deleteTask)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     
                 }.textCase(nil)
             }
             
-            if let data = request.filter{$0.isComplete == true}, data.count > 0 {
+            if let data = self.tasks.filter{$0.isComplete == true}, data.count > 0 {
                 Section(header: ListTaskSection(title: "Done")) {
                     ForEach(data, id: \.id) { task in
                         TaskRow(data: task, title: "Done")
-                            .swipeActions {
-                                Button {
-                                    self.deleteObject(object: task)
-                                } label: {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.white)
-                                }
-                            }
-                    }.listRowInsets(EdgeInsets())
+                    }
+                    .onDelete(perform: deleteTask)
+                    .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     
                 }.textCase(nil)

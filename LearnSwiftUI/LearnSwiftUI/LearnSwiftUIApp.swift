@@ -20,7 +20,6 @@ struct LearnSwiftUIApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistentController.container.viewContext)
-                .environmentObject(TaskViewModel.shared)
                 .environmentObject(CategoryViewModel.shared)
                 .onOpenURL(perform: { url in
                     name = url.valueOf("name") ?? ""

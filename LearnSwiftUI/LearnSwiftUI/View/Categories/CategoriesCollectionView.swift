@@ -21,9 +21,11 @@ struct CategoriesCollectionView: View {
     let spacing: CGFloat
     
     let columns = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    @StateObject var categoryVM = CategoryViewModel.shared
 
     init(spacing: CGFloat = 5,
          showIndicators: Bool = true) {
@@ -34,9 +36,9 @@ struct CategoriesCollectionView: View {
     var body: some View {
         ScrollView(showsIndicators: showIndicators) {
             LazyVGrid(columns: columns, spacing: spacing) {
-                ForEach(categoriesDB, id: \.id) { object in
+                ForEach(Array(self.categoryVM.categories.enumerated()), id: \.offset) { index, object in
                     NavigationLink {
-                        ListsTaskPageView(category: object)
+                        ListsTaskPageView(index: index, categoryID: object.id ?? "")
                     } label: {
                         VStack(alignment: .leading, spacing: 10) {
                             Image(systemName: object.imageName ?? "")
@@ -46,7 +48,7 @@ struct CategoriesCollectionView: View {
                             Spacer()
                             Text(object.name ?? "")
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            Text("\(object.totalTask) Tasks ")
+                            Text("\(object.tasks.count) Tasks ")
                                 .font(Font.system(size: 14))
                                 .foregroundColor(Color.gray)
                         }
@@ -55,6 +57,9 @@ struct CategoriesCollectionView: View {
                         .cornerRadius(8)
                     }
                 }
+            }
+            .onAppear{
+                self.categoryVM.categories = categoriesDB.map{ $0 }
             }
         }
     }

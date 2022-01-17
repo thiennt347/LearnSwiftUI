@@ -102,9 +102,9 @@ public struct SFSymbolsPicker: View {
     }
     
     private func impactFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle) {
-            let generator = UIImpactFeedbackGenerator(style: style)
-            generator.prepare()
-            generator.impactOccurred()
+        let generator = UIImpactFeedbackGenerator(style: style)
+        generator.prepare()
+        generator.impactOccurred()
     }
 }
 

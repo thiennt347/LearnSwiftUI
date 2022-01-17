@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddNewTaskPage: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var taskModel = TaskViewModel.shared
+    @StateObject var categoryVM =  CategoryViewModel()
+    
     @Environment(\.managedObjectContext) var context
     
     @State var taskName: String = ""
@@ -36,15 +37,11 @@ struct AddNewTaskPage: View {
                         if self.taskName.isEmpty {
                             return
                         }
-                        let taskDB = TaskDB(context: self.context)
-                        taskDB.id = UUID().uuidString
-                        taskDB.taskName = taskName
-                        taskDB.taskDate = Date.now
-                        taskDB.categoryID = category.id
-                        taskDB.categoryDB = category
-                        taskDB.categoryDB?.totalTask += 1
                         
-                        try? context.save()
+                        self.categoryVM.addTask(taskName: taskName,
+                                                taskDate: Date.now,
+                                                category: self.category,
+                                                context: self.context)
                         self.dismiss()
                     } label: {
                         Text("Create")
