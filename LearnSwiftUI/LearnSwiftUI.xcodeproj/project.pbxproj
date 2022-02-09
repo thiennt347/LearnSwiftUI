@@ -16,6 +16,8 @@
 		8C8526E327859A1200BDC6C2 /* BaseViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526E227859A1200BDC6C2 /* BaseViewMenu.swift */; };
 		8C8526ED278708BD00BDC6C2 /* CategoriesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526EC278708BD00BDC6C2 /* CategoriesViewCell.swift */; };
 		8C8526EF27870B2500BDC6C2 /* CategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526EE27870B2500BDC6C2 /* CategoriesData.swift */; };
+		8C920A1D27B3A5C80004FF45 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C920A1C27B3A5C80004FF45 /* DatePickerView.swift */; };
+		8C920A1F27B3D45B0004FF45 /* CategoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C920A1E27B3D45B0004FF45 /* CategoryPicker.swift */; };
 		8CC07177278C26B900410BA0 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC07176278C26B900410BA0 /* MyAppDelegate.swift */; };
 		8CC0717B278C3D2F00410BA0 /* ListsTaskPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */; };
 		8CC0717D278C4CED00410BA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC0717C278C4CED00410BA0 /* UIView+Extension.swift */; };
@@ -66,6 +68,8 @@
 		8C8526E227859A1200BDC6C2 /* BaseViewMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewMenu.swift; sourceTree = "<group>"; };
 		8C8526EC278708BD00BDC6C2 /* CategoriesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewCell.swift; sourceTree = "<group>"; };
 		8C8526EE27870B2500BDC6C2 /* CategoriesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesData.swift; sourceTree = "<group>"; };
+		8C920A1C27B3A5C80004FF45 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		8C920A1E27B3D45B0004FF45 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
 		8CC07174278C25C200410BA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8CC07176278C26B900410BA0 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
 		8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTaskPageView.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 		8C8526E52786EECC00BDC6C2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8C920A1B27B3A5B60004FF45 /* DatePicker */,
 				8CE48A7027912F68002FE12B /* ImagePicker */,
 				8CE20234277D9B090002926D /* Home */,
 				8C8526DB2785988900BDC6C2 /* Categories */,
@@ -183,8 +188,17 @@
 				8C8526D82785984300BDC6C2 /* Analytics */,
 				8C8526D227855ED800BDC6C2 /* Settings */,
 				8CC07179278C3D0C00410BA0 /* ListsTask */,
+				8C920A1E27B3D45B0004FF45 /* CategoryPicker.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8C920A1B27B3A5B60004FF45 /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				8C920A1C27B3A5C80004FF45 /* DatePickerView.swift */,
+			);
+			path = DatePicker;
 			sourceTree = "<group>";
 		};
 		8CC07175278C26AB00410BA0 /* AppDelegate */ = {
@@ -448,8 +462,10 @@
 				8CE48AA82793337C002FE12B /* CategoryDB+CoreDataProperties.swift in Sources */,
 				8C8526D627857B4500BDC6C2 /* SideMenuViewModel.swift in Sources */,
 				8CE20236277D9B170002926D /* HomePageView.swift in Sources */,
+				8C920A1F27B3D45B0004FF45 /* CategoryPicker.swift in Sources */,
 				8CE20232277D93E80002926D /* Detail.swift in Sources */,
 				8CE48A49279044B5002FE12B /* WillDisappearHandler.swift in Sources */,
+				8C920A1D27B3A5C80004FF45 /* DatePickerView.swift in Sources */,
 				8CE20223277D71F40002926D /* Mapview.swift in Sources */,
 				8CE48AA72793337C002FE12B /* CategoryDB+CoreDataClass.swift in Sources */,
 				8CE48AA62793337C002FE12B /* TaskDB+CoreDataProperties.swift in Sources */,

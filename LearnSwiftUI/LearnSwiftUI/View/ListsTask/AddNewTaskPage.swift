@@ -14,7 +14,12 @@ struct AddNewTaskPage: View {
     @Environment(\.managedObjectContext) var context
     
     @State var taskName: String = ""
-    var category: CategoryDB
+    @State var taskDate: Date = Date.now
+    @State var showDatePicker: Bool = false
+    
+    @State var showCategoryPicker: Bool = false
+    
+    @State var categorySelected: CategoryDB
     
     var body: some View {
         NavigationView {
@@ -38,9 +43,9 @@ struct AddNewTaskPage: View {
                             return
                         }
                         
-                        self.categoryVM.addTask(taskName: taskName,
-                                                taskDate: Date.now,
-                                                category: self.category,
+                        self.categoryVM.addTask(taskName: self.taskName,
+                                                taskDate: self.taskDate,
+                                                category: self.categorySelected,
                                                 context: self.context)
                         self.dismiss()
                     } label: {
@@ -56,10 +61,22 @@ struct AddNewTaskPage: View {
                     .cornerRadius(10)
                     .padding()
                 }
+                
+                if showDatePicker {
+                    DatePickerWithButtons(showDatePicker: $showDatePicker,
+                                          savedDate: $taskDate,
+                                          selectedDate: self.taskDate)
+                        .transition(.opacity)
+                }
+                
+                if showCategoryPicker {
+                    CategoryPicker(showCategoryPicker: self.$showCategoryPicker, selected: self.$categorySelected)
+                }
             }
             .navigationTitle("New task")
             .navigationBarItems(trailing: trailingBtn)
             .navigationBarTitleDisplayMode(.inline)
+            
         }
     }
     
@@ -77,7 +94,11 @@ struct AddNewTaskPage: View {
             HStack(spacing: 10) {
                 Image(systemName: "bell")
                     .foregroundColor(.blue)
-                Text(Date.now.dateToString(dateFormat: "MMM DD, HH:mm"))
+                Button {
+                    self.showDatePicker.toggle()
+                } label: {
+                    Text(self.taskDate.dateToString(dateFormat: "MMM dd, HH:mm"))
+                }
             }
             .frame(height: 40)
             .hLeading()
@@ -91,7 +112,12 @@ struct AddNewTaskPage: View {
             
             HStack(spacing: 10) {
                 Image(systemName: "tag")
-                Text("Category")
+                Button {
+                    self.showCategoryPicker.toggle()
+                } label: {
+                    Text("Category")
+                }
+
             }.frame(height: 40)
             .hLeading()
             .foregroundColor(.gray)

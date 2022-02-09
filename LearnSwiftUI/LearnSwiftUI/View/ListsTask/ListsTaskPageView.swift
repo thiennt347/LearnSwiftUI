@@ -44,7 +44,7 @@ struct ListsTaskPageView: View {
                         .frame(width: 60, height: 60)
                 }).padding(), alignment: .bottomTrailing
             ).fullScreenCover(isPresented: $categoryVM.addNewTask) {
-                AddNewTaskPage(category: self.categoryVM.categories[index])
+                AddNewTaskPage( categorySelected: self.categoryVM.categories[index])
             }
             
         }
