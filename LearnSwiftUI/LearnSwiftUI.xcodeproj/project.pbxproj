@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C6DB6AF27C4DC0B008D19EF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6AE27C4DC0B008D19EF /* NotificationManager.swift */; };
+		8C6DB6B127C4E560008D19EF /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B027C4E560008D19EF /* NotificationSettingsView.swift */; };
 		8C8526D12785545000BDC6C2 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D02785545000BDC6C2 /* UIScreen+Extension.swift */; };
 		8C8526D427855EE500BDC6C2 /* SettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D327855EE500BDC6C2 /* SettingsPageView.swift */; };
 		8C8526D627857B4500BDC6C2 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D527857B4500BDC6C2 /* SideMenuViewModel.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C6DB6AE27C4DC0B008D19EF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		8C6DB6B027C4E560008D19EF /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
 		8C8526D02785545000BDC6C2 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
 		8C8526D327855EE500BDC6C2 /* SettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPageView.swift; sourceTree = "<group>"; };
 		8C8526D527857B4500BDC6C2 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
@@ -123,6 +127,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C6DB6AD27C4DBF5008D19EF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8C6DB6AE27C4DC0B008D19EF /* NotificationManager.swift */,
+				8C6DB6B027C4E560008D19EF /* NotificationSettingsView.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		8C8526CF2785543D00BDC6C2 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +252,7 @@
 		8CE2020F277D6B050002926D /* LearnSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				8C6DB6AD27C4DBF5008D19EF /* Managers */,
 				8CE48A552791230C002FE12B /* CoreData */,
 				8CC07175278C26AB00410BA0 /* AppDelegate */,
 				8CC07174278C25C200410BA0 /* Info.plist */,
@@ -455,6 +469,7 @@
 				8C8526D12785545000BDC6C2 /* UIScreen+Extension.swift in Sources */,
 				8CE20213277D6B050002926D /* ContentView.swift in Sources */,
 				8CE48AA0279177E2002FE12B /* TaskRow.swift in Sources */,
+				8C6DB6B127C4E560008D19EF /* NotificationSettingsView.swift in Sources */,
 				8C8526E327859A1200BDC6C2 /* BaseViewMenu.swift in Sources */,
 				8CE7930B278468FE002BD8D9 /* Home.swift in Sources */,
 				8CE48A7727912F77002FE12B /* SFSymbolsPicker.swift in Sources */,
@@ -485,6 +500,7 @@
 				8CE20228277D8DF70002926D /* LearnSwiftModel.swift in Sources */,
 				8CE48A452790280E002FE12B /* MutilineTextView.swift in Sources */,
 				8CC07177278C26B900410BA0 /* MyAppDelegate.swift in Sources */,
+				8C6DB6AF27C4DC0B008D19EF /* NotificationManager.swift in Sources */,
 				8C8526EF27870B2500BDC6C2 /* CategoriesData.swift in Sources */,
 				8C8526ED278708BD00BDC6C2 /* CategoriesViewCell.swift in Sources */,
 				8CE48A8927915739002FE12B /* PersistentContainer.swift in Sources */,

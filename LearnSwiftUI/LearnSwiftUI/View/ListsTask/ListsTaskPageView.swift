@@ -44,7 +44,7 @@ struct ListsTaskPageView: View {
                         .frame(width: 60, height: 60)
                 }).padding(), alignment: .bottomTrailing
             ).fullScreenCover(isPresented: $categoryVM.addNewTask) {
-                AddNewTaskPage( categorySelected: self.categoryVM.categories[index])
+                AddNewTaskPage(categorySelected: self.categoryVM.categories[index])
             }
             
         }
@@ -106,10 +106,14 @@ struct ListsTaskPageView: View {
     
     var listTaskView: some View {
         List {
-            if let late = self.tasks.filter{($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)}, late.count > 0 {
+            if let late = self.tasks.filter{(($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)) && ($0.isComplete == false)}, late.count > 0 {
                 Section(header: ListTaskSection(title: "Late")) {
                     ForEach(late, id: \.id) { task in
-                        TaskRow(data: task, title: "Late")
+                        NavigationLink {
+                            AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: task)
+                        } label: {
+                            TaskRow(data: task, title: "Late")
+                        }
                     }
                     .onDelete(perform: deleteTask)
                     .listRowInsets(EdgeInsets())
@@ -118,10 +122,14 @@ struct ListsTaskPageView: View {
                 }.textCase(nil)
             }
             
-            if let today = self.tasks.filter{($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)}, today.count > 0 {
+            if let today = self.tasks.filter{(($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)) && ($0.isComplete == false)}, today.count > 0 {
                 Section(header: ListTaskSection(title: "Today")) {
                     ForEach(today, id: \.id) { task in
-                        TaskRow(data: task, title: "Today")
+                        NavigationLink {
+                            AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: task)
+                        } label: {
+                            TaskRow(data: task, title: "Today")
+                        }
                     }
                     .onDelete(perform: deleteTask)
                     .listRowInsets(EdgeInsets())

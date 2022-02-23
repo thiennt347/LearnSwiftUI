@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskRow: View {
     var data: TaskDB
     var title: String
+    @Environment(\.managedObjectContext) var context
     
     var body: some View {
         HStack {
@@ -38,6 +39,7 @@ struct TaskRow: View {
                         return
                     }
                     data.isComplete.toggle()
+                    try? context.save()
                 }
         }
         .opacity(title == "Done" ? 0.5 : 1)

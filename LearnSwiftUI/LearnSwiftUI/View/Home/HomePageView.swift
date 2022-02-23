@@ -16,6 +16,7 @@ struct HomePageView: View {
     var menuAction: (() -> Void)?
     
     @State var actionBtnFirst = false
+    @State var showNotificationSettingsUI = false
     
     var body: some View {
         BaseNavigationView(
@@ -23,6 +24,11 @@ struct HomePageView: View {
             imgBtnSecond: "ic_notification",
             actionBtnSecond: {
                 print("Notification action")
+                NotificationManager.shared.requestAuthorization { granted in
+                    if granted {
+                      showNotificationSettingsUI = true
+                    }
+                }
             },
             bgColor: Color.black.opacity(0.03),
             content:
@@ -44,6 +50,9 @@ struct HomePageView: View {
         .btnFirstTapped {
             self.actionBtnFirst = true
         }
+        .sheet(isPresented: $showNotificationSettingsUI) {
+            NotificationSettingsView()
+      }
     }
 }
 

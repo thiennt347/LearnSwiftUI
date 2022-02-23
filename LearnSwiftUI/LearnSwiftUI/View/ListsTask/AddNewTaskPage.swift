@@ -15,18 +15,19 @@ struct AddNewTaskPage: View {
     
     @State var taskName: String = ""
     @State var taskDate: Date = Date.now
-    @State var showDatePicker: Bool = false
     
     @State var showCategoryPicker: Bool = false
     
     @State var categorySelected: CategoryDB
+    
+    @State var task: TaskDB?
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     VStack {
-                        Text("What are you planing?")
+                        Text("What are you planning?")
                             .font(Font.system(size: 18))
                             .hLeading()
                             .foregroundColor(.gray)
@@ -43,13 +44,21 @@ struct AddNewTaskPage: View {
                             return
                         }
                         
-                        self.categoryVM.addTask(taskName: self.taskName,
-                                                taskDate: self.taskDate,
-                                                category: self.categorySelected,
-                                                context: self.context)
+                        if let task = self.task {
+                            task.taskName = self.taskName
+                            task.taskDate = self.taskDate
+                            task.categoryDB = self.categorySelected
+                            task.categoryID = self.categorySelected.id
+                            try? context.save()
+                        } else {
+                            self.categoryVM.addTask(taskName: self.taskName,
+                                                    taskDate: self.taskDate,
+                                                    category: self.categorySelected,
+                                                    context: self.context)
+                        }
                         self.dismiss()
                     } label: {
-                        Text("Create")
+                        Text(self.task == nil ? "Create"  : "Edit")
                             .foregroundColor(self.taskName.isEmpty ? .black.opacity(0.5) : .white)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
@@ -62,20 +71,20 @@ struct AddNewTaskPage: View {
                     .padding()
                 }
                 
-                if showDatePicker {
-                    DatePickerWithButtons(showDatePicker: $showDatePicker,
-                                          savedDate: $taskDate,
-                                          selectedDate: self.taskDate)
-                        .transition(.opacity)
-                }
-                
                 if showCategoryPicker {
                     CategoryPicker(showCategoryPicker: self.$showCategoryPicker, selected: self.$categorySelected)
                 }
             }
-            .navigationTitle("New task")
+            .navigationTitle(self.task == nil ? "New task"  : "Edit task")
             .navigationBarItems(trailing: trailingBtn)
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if let task = self.task {
+                    self.taskName = task.taskName ?? ""
+                    self.taskDate = task.taskDate ?? Date.now
+                    self.categorySelected = task.categoryDB!
+                }
+            }
             
         }
     }
@@ -94,11 +103,9 @@ struct AddNewTaskPage: View {
             HStack(spacing: 10) {
                 Image(systemName: "bell")
                     .foregroundColor(.blue)
-                Button {
-                    self.showDatePicker.toggle()
-                } label: {
-                    Text(self.taskDate.dateToString(dateFormat: "MMM dd, HH:mm"))
-                }
+                DatePicker("Please enter a date", selection: $taskDate)
+                  .labelsHidden()
+                  .padding(.vertical)
             }
             .frame(height: 40)
             .hLeading()

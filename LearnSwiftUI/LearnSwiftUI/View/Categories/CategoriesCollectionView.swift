@@ -36,7 +36,7 @@ struct CategoriesCollectionView: View {
     var body: some View {
         ScrollView(showsIndicators: showIndicators) {
             LazyVGrid(columns: columns, spacing: spacing) {
-                ForEach(Array(self.categoryVM.categories.enumerated()), id: \.offset) { index, object in
+                ForEach(Array(self.categoriesDB.enumerated()), id: \.offset) { index, object in
                     NavigationLink {
                         ListsTaskPageView(index: index, categoryID: object.id ?? "")
                     } label: {
