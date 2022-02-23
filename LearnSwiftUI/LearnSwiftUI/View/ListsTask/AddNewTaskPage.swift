@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddNewTaskPage: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var categoryVM =  CategoryViewModel()
+    @StateObject var categoryVM = CategoryViewModel()
     
     @Environment(\.managedObjectContext) var context
     
@@ -43,19 +43,11 @@ struct AddNewTaskPage: View {
                         if self.taskName.isEmpty {
                             return
                         }
-                        
-                        if let task = self.task {
-                            task.taskName = self.taskName
-                            task.taskDate = self.taskDate
-                            task.categoryDB = self.categorySelected
-                            task.categoryID = self.categorySelected.id
-                            try? context.save()
-                        } else {
-                            self.categoryVM.addTask(taskName: self.taskName,
-                                                    taskDate: self.taskDate,
-                                                    category: self.categorySelected,
-                                                    context: self.context)
-                        }
+                        self.categoryVM.actionTask(taskDB: self.task,
+                                                   taskName: self.taskName,
+                                                   taskDate: self.taskDate,
+                                                   category: self.categorySelected,
+                                                   context: self.context)
                         self.dismiss()
                     } label: {
                         Text(self.task == nil ? "Create"  : "Edit")

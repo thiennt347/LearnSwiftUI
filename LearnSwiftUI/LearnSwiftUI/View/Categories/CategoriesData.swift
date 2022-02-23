@@ -27,25 +27,13 @@ class CategoryViewModel: NSObject, ObservableObject {
     
     @Published var categories: [CategoryDB] = []
     
-    func addTask(taskName: String,
+    func actionTask(taskDB: TaskDB? = nil,
+                 taskName: String,
                  taskDate: Date,
                  category: CategoryDB,
                  context: NSManagedObjectContext) {
-        let taskDB = TaskDB(context: context)
+        let taskDB = taskDB != nil ? taskDB! : TaskDB(context: context)
         taskDB.id = UUID().uuidString
-        taskDB.taskName = taskName
-        taskDB.taskDate = taskDate
-        taskDB.categoryID = category.id
-        taskDB.categoryDB = category
-        try? context.save()
-        NotificationManager.shared.scheduleNotification(task: taskDB)
-    }
-    
-    func editTask(taskDB: TaskDB,
-                  taskName: String,
-                 taskDate: Date,
-                 category: CategoryDB,
-                 context: NSManagedObjectContext) {
         taskDB.taskName = taskName
         taskDB.taskDate = taskDate
         taskDB.categoryID = category.id
