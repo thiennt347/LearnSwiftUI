@@ -22,6 +22,7 @@ class CategoryViewModel: NSObject, ObservableObject {
     
     @Published var newCategory: Bool = false
     @Published var addNewTask: Bool = false
+    @Published var editTask: Bool = false
     @Published var pickerImage: Bool = false
     @Published var pickerColor: Bool = false
     
@@ -30,6 +31,8 @@ class CategoryViewModel: NSObject, ObservableObject {
     func actionTask(taskDB: TaskDB? = nil,
                  taskName: String,
                  taskDate: Date,
+                    note: String,
+                    image: UIImage?,
                  category: CategoryDB,
                  context: NSManagedObjectContext) {
         let taskDB = taskDB != nil ? taskDB! : TaskDB(context: context)
@@ -38,6 +41,10 @@ class CategoryViewModel: NSObject, ObservableObject {
         taskDB.taskDate = taskDate
         taskDB.categoryID = category.id
         taskDB.categoryDB = category
+        taskDB.note = note
+        if let data = image?.pngData() {
+            taskDB.image = data
+        }
         try? context.save()
         NotificationManager.shared.scheduleNotification(task: taskDB)
     }

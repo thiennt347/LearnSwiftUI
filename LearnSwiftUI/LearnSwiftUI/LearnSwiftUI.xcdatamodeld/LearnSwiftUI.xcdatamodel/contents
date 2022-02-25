@@ -10,13 +10,15 @@
     <entity name="TaskDB" representedClassName=".TaskDB" syncable="YES">
         <attribute name="categoryID" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="taskDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="taskName" optional="YES" attributeType="String"/>
         <relationship name="categoryDB" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryDB" inverseName="taskDB" inverseEntity="CategoryDB"/>
     </entity>
     <elements>
         <element name="CategoryDB" positionX="-54" positionY="18" width="128" height="118"/>
-        <element name="TaskDB" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="TaskDB" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

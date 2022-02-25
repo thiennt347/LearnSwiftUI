@@ -14,9 +14,12 @@ struct AddNewTaskPage: View {
     @Environment(\.managedObjectContext) var context
     
     @State var taskName: String = ""
-    @State var taskDate: Date = Date.now
+    @State var taskDate: Date = Date()
+    @State var note: String = ""
+    @State var image: UIImage?
     
     @State var showCategoryPicker: Bool = false
+    @State var showNotePage: Bool = false
     
     @State var categorySelected: CategoryDB
     
@@ -46,6 +49,8 @@ struct AddNewTaskPage: View {
                         self.categoryVM.actionTask(taskDB: self.task,
                                                    taskName: self.taskName,
                                                    taskDate: self.taskDate,
+                                                   note: self.note,
+                                                   image: self.image,
                                                    category: self.categorySelected,
                                                    context: self.context)
                         self.dismiss()
@@ -67,6 +72,9 @@ struct AddNewTaskPage: View {
                     CategoryPicker(showCategoryPicker: self.$showCategoryPicker, selected: self.$categorySelected)
                 }
             }
+            .fullScreenCover(isPresented: $showNotePage) {
+                NotePageView(note: self.$note, selectedImage: self.$image)
+            }
             .navigationTitle(self.task == nil ? "New task"  : "Edit task")
             .navigationBarItems(trailing: trailingBtn)
             .navigationBarTitleDisplayMode(.inline)
@@ -75,6 +83,10 @@ struct AddNewTaskPage: View {
                     self.taskName = task.taskName ?? ""
                     self.taskDate = task.taskDate ?? Date.now
                     self.categorySelected = task.categoryDB!
+                    self.note = task.note ?? ""
+                    if task.image != nil,  let image = UIImage(data: task.image!) {
+                        self.image = image
+                    }
                 }
             }
             
@@ -101,14 +113,17 @@ struct AddNewTaskPage: View {
             }
             .frame(height: 40)
             .hLeading()
-            
-            HStack(spacing: 10) {
-                Image(systemName: "note")
-                Text("Add Note")
-            }.frame(height: 40)
-            .hLeading()
-            .foregroundColor(.gray)
-            
+            Button {
+                self.showNotePage.toggle()
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "note")
+                    Text("Add Note")
+                }.frame(height: 40)
+                .hLeading()
+                .foregroundColor(.gray)
+            }
+
             HStack(spacing: 10) {
                 Image(systemName: "tag")
                 Button {

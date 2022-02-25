@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8C6DB6AF27C4DC0B008D19EF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6AE27C4DC0B008D19EF /* NotificationManager.swift */; };
 		8C6DB6B127C4E560008D19EF /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B027C4E560008D19EF /* NotificationSettingsView.swift */; };
+		8C6DB6B427C62025008D19EF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B327C62024008D19EF /* ImagePicker.swift */; };
+		8C6DB6B627C620EF008D19EF /* NotePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B527C620EF008D19EF /* NotePageView.swift */; };
+		8C6DB6B927C6378B008D19EF /* TaskDB+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B727C6378B008D19EF /* TaskDB+CoreDataClass.swift */; };
+		8C6DB6BA27C6378B008D19EF /* TaskDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB6B827C6378B008D19EF /* TaskDB+CoreDataProperties.swift */; };
 		8C8526D12785545000BDC6C2 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D02785545000BDC6C2 /* UIScreen+Extension.swift */; };
 		8C8526D427855EE500BDC6C2 /* SettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D327855EE500BDC6C2 /* SettingsPageView.swift */; };
 		8C8526D627857B4500BDC6C2 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8526D527857B4500BDC6C2 /* SideMenuViewModel.swift */; };
@@ -50,8 +54,6 @@
 		8CE48A9327915B48002FE12B /* DynamicFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A9227915B48002FE12B /* DynamicFilteredView.swift */; };
 		8CE48A9D27916F89002FE12B /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A9C27916F89002FE12B /* CategoriesCollectionView.swift */; };
 		8CE48AA0279177E2002FE12B /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A9F279177E2002FE12B /* TaskRow.swift */; };
-		8CE48AA52793337C002FE12B /* TaskDB+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48AA12793337C002FE12B /* TaskDB+CoreDataClass.swift */; };
-		8CE48AA62793337C002FE12B /* TaskDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48AA22793337C002FE12B /* TaskDB+CoreDataProperties.swift */; };
 		8CE48AA72793337C002FE12B /* CategoryDB+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48AA32793337C002FE12B /* CategoryDB+CoreDataClass.swift */; };
 		8CE48AA82793337C002FE12B /* CategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48AA42793337C002FE12B /* CategoryDB+CoreDataProperties.swift */; };
 		8CE79305278458F6002BD8D9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE79304278458F6002BD8D9 /* MainView.swift */; };
@@ -63,6 +65,10 @@
 /* Begin PBXFileReference section */
 		8C6DB6AE27C4DC0B008D19EF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		8C6DB6B027C4E560008D19EF /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
+		8C6DB6B327C62024008D19EF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8C6DB6B527C620EF008D19EF /* NotePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePageView.swift; sourceTree = "<group>"; };
+		8C6DB6B727C6378B008D19EF /* TaskDB+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskDB+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8C6DB6B827C6378B008D19EF /* TaskDB+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8C8526D02785545000BDC6C2 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
 		8C8526D327855EE500BDC6C2 /* SettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPageView.swift; sourceTree = "<group>"; };
 		8C8526D527857B4500BDC6C2 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
@@ -106,8 +112,6 @@
 		8CE48A9227915B48002FE12B /* DynamicFilteredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFilteredView.swift; sourceTree = "<group>"; };
 		8CE48A9C27916F89002FE12B /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
 		8CE48A9F279177E2002FE12B /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
-		8CE48AA12793337C002FE12B /* TaskDB+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskDB+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8CE48AA22793337C002FE12B /* TaskDB+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8CE48AA32793337C002FE12B /* CategoryDB+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryDB+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8CE48AA42793337C002FE12B /* CategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8CE79304278458F6002BD8D9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				8CC0717A278C3D2F00410BA0 /* ListsTaskPageView.swift */,
 				8CE48A4227901C5C002FE12B /* AddNewTaskPage.swift */,
 				8CE48A442790280E002FE12B /* MutilineTextView.swift */,
+				8C6DB6B527C620EF008D19EF /* NotePageView.swift */,
 			);
 			path = ListsTask;
 			sourceTree = "<group>";
@@ -339,8 +344,8 @@
 		8CE48A552791230C002FE12B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				8CE48AA12793337C002FE12B /* TaskDB+CoreDataClass.swift */,
-				8CE48AA22793337C002FE12B /* TaskDB+CoreDataProperties.swift */,
+				8C6DB6B727C6378B008D19EF /* TaskDB+CoreDataClass.swift */,
+				8C6DB6B827C6378B008D19EF /* TaskDB+CoreDataProperties.swift */,
 				8CE48AA32793337C002FE12B /* CategoryDB+CoreDataClass.swift */,
 				8CE48AA42793337C002FE12B /* CategoryDB+CoreDataProperties.swift */,
 				8CE48A8827915739002FE12B /* PersistentContainer.swift */,
@@ -353,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				8CE48A7127912F77002FE12B /* SFSymbolsPicker */,
+				8C6DB6B327C62024008D19EF /* ImagePicker.swift */,
 			);
 			path = ImagePicker;
 			sourceTree = "<group>";
@@ -470,10 +476,12 @@
 				8CE20213277D6B050002926D /* ContentView.swift in Sources */,
 				8CE48AA0279177E2002FE12B /* TaskRow.swift in Sources */,
 				8C6DB6B127C4E560008D19EF /* NotificationSettingsView.swift in Sources */,
+				8C6DB6B627C620EF008D19EF /* NotePageView.swift in Sources */,
 				8C8526E327859A1200BDC6C2 /* BaseViewMenu.swift in Sources */,
 				8CE7930B278468FE002BD8D9 /* Home.swift in Sources */,
 				8CE48A7727912F77002FE12B /* SFSymbolsPicker.swift in Sources */,
 				8C8526E02785992300BDC6C2 /* TemplatesPageView.swift in Sources */,
+				8C6DB6B427C62025008D19EF /* ImagePicker.swift in Sources */,
 				8CE48AA82793337C002FE12B /* CategoryDB+CoreDataProperties.swift in Sources */,
 				8C8526D627857B4500BDC6C2 /* SideMenuViewModel.swift in Sources */,
 				8CE20236277D9B170002926D /* HomePageView.swift in Sources */,
@@ -483,20 +491,20 @@
 				8C920A1D27B3A5C80004FF45 /* DatePickerView.swift in Sources */,
 				8CE20223277D71F40002926D /* Mapview.swift in Sources */,
 				8CE48AA72793337C002FE12B /* CategoryDB+CoreDataClass.swift in Sources */,
-				8CE48AA62793337C002FE12B /* TaskDB+CoreDataProperties.swift in Sources */,
 				8CE48A4327901C5C002FE12B /* AddNewTaskPage.swift in Sources */,
 				8CE2023A277DB07D0002926D /* DataModel.swift in Sources */,
 				8CE48A6F27912952002FE12B /* AddNewCategoryView.swift in Sources */,
 				8CE48A4C27911D26002FE12B /* LearnSwiftUI.xcdatamodeld in Sources */,
 				8CC0717D278C4CED00410BA0 /* UIView+Extension.swift in Sources */,
 				8CE48A7627912F77002FE12B /* Symbols.swift in Sources */,
+				8C6DB6B927C6378B008D19EF /* TaskDB+CoreDataClass.swift in Sources */,
 				8CE20230277D91360002926D /* LearnSwiftUIList.swift in Sources */,
+				8C6DB6BA27C6378B008D19EF /* TaskDB+CoreDataProperties.swift in Sources */,
 				8CE2022A277D8F070002926D /* ModelData.swift.swift in Sources */,
 				8CE20211277D6B050002926D /* LearnSwiftUIApp.swift in Sources */,
 				8CE20221277D6FA70002926D /* CircleImage.swift in Sources */,
 				8CE2023D277DBF5E0002926D /* CategoryRow.swift in Sources */,
 				8C8526DD278598A100BDC6C2 /* CategoriesPageView.swift in Sources */,
-				8CE48AA52793337C002FE12B /* TaskDB+CoreDataClass.swift in Sources */,
 				8CE20228277D8DF70002926D /* LearnSwiftModel.swift in Sources */,
 				8CE48A452790280E002FE12B /* MutilineTextView.swift in Sources */,
 				8CC07177278C26B900410BA0 /* MyAppDelegate.swift in Sources */,
@@ -635,6 +643,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LearnSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = L9662WYXTD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LearnSwiftUI/Info.plist;
@@ -664,6 +673,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LearnSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = L9662WYXTD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LearnSwiftUI/Info.plist;

@@ -10,6 +10,7 @@ import SwiftUI
 struct ListsTaskPageView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var categoryVM = CategoryViewModel.shared
+    @State var taskSelected: TaskDB?
     
     @Environment(\.managedObjectContext) var context
 
@@ -44,7 +45,9 @@ struct ListsTaskPageView: View {
                         .frame(width: 60, height: 60)
                 }).padding(), alignment: .bottomTrailing
             ).fullScreenCover(isPresented: $categoryVM.addNewTask) {
-                AddNewTaskPage(categorySelected: self.categoryVM.categories[index])
+                AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: taskSelected)
+            }.fullScreenCover(isPresented: $categoryVM.editTask) {
+                AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: taskSelected)
             }
             
         }
@@ -109,8 +112,9 @@ struct ListsTaskPageView: View {
             if let late = self.tasks.filter{(($0.taskDate ?? Date.now.startOfDay) < (Date.now.startOfDay)) && ($0.isComplete == false)}, late.count > 0 {
                 Section(header: ListTaskSection(title: "Late")) {
                     ForEach(late, id: \.id) { task in
-                        NavigationLink {
-                            AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: task)
+                        Button {
+                            self.taskSelected = task
+                            self.categoryVM.editTask.toggle()
                         } label: {
                             TaskRow(data: task, title: "Late")
                         }
@@ -125,8 +129,9 @@ struct ListsTaskPageView: View {
             if let today = self.tasks.filter{(($0.taskDate ?? Date.now.startOfDay) >= (Date.now.startOfDay)) && ($0.isComplete == false)}, today.count > 0 {
                 Section(header: ListTaskSection(title: "Today")) {
                     ForEach(today, id: \.id) { task in
-                        NavigationLink {
-                            AddNewTaskPage(categorySelected: self.categoryVM.categories[index], task: task)
+                        Button {
+                            self.taskSelected = task
+                            self.categoryVM.editTask.toggle()
                         } label: {
                             TaskRow(data: task, title: "Today")
                         }

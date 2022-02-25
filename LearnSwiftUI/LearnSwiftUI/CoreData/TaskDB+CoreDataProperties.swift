@@ -2,7 +2,7 @@
 //  TaskDB+CoreDataProperties.swift
 //  LearnSwiftUI
 //
-//  Created by Duong Pham on 1/15/22.
+//  Created by Duong Pham on 2/23/22.
 //
 //
 
@@ -21,6 +21,8 @@ extension TaskDB {
     @NSManaged public var isComplete: Bool
     @NSManaged public var taskDate: Date?
     @NSManaged public var taskName: String?
+    @NSManaged public var note: String?
+    @NSManaged public var image: Data?
     @NSManaged public var categoryDB: CategoryDB?
 
 }
