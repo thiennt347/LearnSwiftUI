@@ -53,6 +53,12 @@ class CategoryViewModel: NSObject, ObservableObject {
                      icon: String,
                      color: Color,
                      context: NSManagedObjectContext) {
+        
+        var data = Hello(lists: ["asdasd"], aida: "asd")
+        
+        data.addData(data: "he")
+        data.removeList(index: 0)
+        
         let categoryDB = CategoryDB(context: context)
         categoryDB.id = UUID().uuidString
         categoryDB.imageColor = color.hexaRGB

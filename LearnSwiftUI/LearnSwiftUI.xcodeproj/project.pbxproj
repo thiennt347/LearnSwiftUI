@@ -43,6 +43,7 @@
 		8CE2023A277DB07D0002926D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE20239277DB07D0002926D /* DataModel.swift */; };
 		8CE2023D277DBF5E0002926D /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE2023C277DBF5E0002926D /* CategoryRow.swift */; };
 		8CE2023F277DBF980002926D /* TodayTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE2023E277DBF980002926D /* TodayTaskRow.swift */; };
+		8CE3D18027D2040C00168EA2 /* Hello.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3D17F27D2040C00168EA2 /* Hello.swift */; };
 		8CE48A4327901C5C002FE12B /* AddNewTaskPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A4227901C5C002FE12B /* AddNewTaskPage.swift */; };
 		8CE48A452790280E002FE12B /* MutilineTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A442790280E002FE12B /* MutilineTextView.swift */; };
 		8CE48A49279044B5002FE12B /* WillDisappearHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE48A48279044B5002FE12B /* WillDisappearHandler.swift */; };
@@ -101,6 +102,7 @@
 		8CE20239277DB07D0002926D /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8CE2023C277DBF5E0002926D /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		8CE2023E277DBF980002926D /* TodayTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTaskRow.swift; sourceTree = "<group>"; };
+		8CE3D17F27D2040C00168EA2 /* Hello.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello.swift; sourceTree = "<group>"; };
 		8CE48A4227901C5C002FE12B /* AddNewTaskPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTaskPage.swift; sourceTree = "<group>"; };
 		8CE48A442790280E002FE12B /* MutilineTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutilineTextView.swift; sourceTree = "<group>"; };
 		8CE48A48279044B5002FE12B /* WillDisappearHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillDisappearHandler.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				8CE20227277D8DF70002926D /* LearnSwiftModel.swift */,
 				8CE20229277D8F070002926D /* ModelData.swift.swift */,
+				8CE3D17F27D2040C00168EA2 /* Hello.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				8CE48A4327901C5C002FE12B /* AddNewTaskPage.swift in Sources */,
 				8CE2023A277DB07D0002926D /* DataModel.swift in Sources */,
 				8CE48A6F27912952002FE12B /* AddNewCategoryView.swift in Sources */,
+				8CE3D18027D2040C00168EA2 /* Hello.swift in Sources */,
 				8CE48A4C27911D26002FE12B /* LearnSwiftUI.xcdatamodeld in Sources */,
 				8CC0717D278C4CED00410BA0 /* UIView+Extension.swift in Sources */,
 				8CE48A7627912F77002FE12B /* Symbols.swift in Sources */,
